@@ -1,0 +1,57 @@
+# Stack Notepad Exercise
+# ----------------------
+# You are building a simple command-line notepad using a stack.
+# - Type a word to add it to your document (push onto the stack).
+# - Type 'UNDO' to remove the last word you added(pop from the stack).
+# - Type 'SHOW' to display the current document (all words in the stack).
+#
+# NOTE: You must use import the methods from stack_implementation.py. Do not use a Python list directly.
+# Complete the functions below to make this work!
+
+
+
+
+from stack_implementation import push, pop, peek, is_empty, size
+def add_word(word):
+    push(word)
+def undo():
+    if not is_empty():
+        pop()
+
+def show():
+    # To display the stack in order of addition, we need to access the internal stack.
+    # Since we can't access _stack directly, let's reconstruct the stack contents:
+    # We'll use a temporary list to pop all items, then print, then push them back.
+    temp = []
+    while not is_empty():
+       temp.append(pop())
+    # Now temp has the words in reverse order (last added is first)
+
+    temp.reverse()
+    print(' '.join(temp))
+    # Push them back to restore the stack
+    for word in temp:
+         push(word)
+def main():
+    while True:
+        command = input ("Enter a command: ").strip()
+        if command =="UNDO":
+            undo()
+        elif command == "SIZE":
+            print (size())
+        elif command == "SHOW":
+           show()
+        elif command == "QUIT":
+           break
+        else:
+            add_word (command)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
+
